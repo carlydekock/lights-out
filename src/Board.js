@@ -86,6 +86,8 @@ import './Board.css';
     // win when every cell is turned off
     // DONE: determine if the game has been won
     let hasWon = !board.includes(true);
+    //Alternative check:
+    // let hasWon = board.every(row => row.every(cell => !cell));
 
     this.setState({board, hasWon});
   }
@@ -95,8 +97,10 @@ import './Board.css';
 
   render() {
     // if the game is won, just show a winning msg & render nothing else
-    // TODO
-    // make table board
+    if(this.state.hasWon){
+      return <h1>YOU WON!</h1>
+    }
+    // DONE: make table board
     let tableBoard = [];
     for (let y = 0; y < this.props.nrows; y++){
       let row = [];
