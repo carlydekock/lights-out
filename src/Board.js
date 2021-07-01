@@ -96,10 +96,21 @@ import './Board.css';
     // if the game is won, just show a winning msg & render nothing else
     // TODO
     // make table board
+    let tableBoard = [];
+    for (let y = 0; y < this.props.nrows; y++){
+      let row = [];
+      for(let x = 0; x < this.props.ncols; x++){
+        row.push(<Cell isLit={this.state.board[y][x]}/>)
+      }
+      tableBoard.push(<tr>{row}</tr>);
+    }
+    
     return(
-      <div className="Board">
-        <h1>Board</h1>
-      </div>
+      <table className="Board">
+        <tbody>
+          {tableBoard}
+        </tbody>
+      </table>
     )
   }
 }
