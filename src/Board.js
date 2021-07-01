@@ -6,8 +6,8 @@ import './Board.css';
  *
  * Properties:
  *
- * - nrows: number of rows of board
- * - ncols: number of cols of board
+ * - nrows: number of rows of board (default to 5)
+ * - ncols: number of columns of board (default to 5)
  * - chanceLightStartsOn: float, chance any cell is lit at start of game
  *
  * State:
@@ -30,17 +30,33 @@ import './Board.css';
 
  class Board extends Component {
 
+  static defaultProps = {
+    nrows: 5,
+    ncols: 5,
+    chanceLightStartsOn: 0.5
+  };
+
   constructor(props) {
     super(props);
-
-    // TODO: set initial state
+    // DONE: set initial state
+    this.state = {
+      hasWon: false,
+      board: this.createBoard()
+    }
   }
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
 
   createBoard() {
     let board = [];
-    // TODO: create array-of-arrays of true/false values
+    // DONE: create array-of-arrays of true/false values
+    for(let y = 0; y < this.props.nrows; y++){
+      let row = [];
+      for(let x = 0; x < this.props.ncols; x++){
+        (row.push(Math.random() < this.props.chanceLightStartsOn));
+      }
+      board.push(row);
+    }
     return board
   }
 
@@ -54,16 +70,21 @@ import './Board.css';
 
     function flipCell(y, x) {
       // if this coord is actually on board, flip it
-
       if (x >= 0 && x < ncols && y >= 0 && y < nrows) {
         board[y][x] = !board[y][x];
       }
     }
 
-    // TODO: flip this cell and the cells around it
+    // DONE: flip this cell and the cells around it
+    flipCell(y, x);
+    flipCell(y+1, x);
+    flipCell(y-1, x);
+    flipCell(y, x+1);
+    flipCell(y, x-1);
 
     // win when every cell is turned off
-    // TODO: determine is the game has been won
+    // DONE: determine if the game has been won
+    let hasWon = !board.includes(true);
 
     this.setState({board, hasWon});
   }
@@ -72,14 +93,14 @@ import './Board.css';
   /** Render game board or winning message. */
 
   render() {
-
     // if the game is won, just show a winning msg & render nothing else
-
     // TODO
-
     // make table board
-
-    // TODO
+    return(
+      <div className="Board">
+        <h1>Board</h1>
+      </div>
+    )
   }
 }
 
